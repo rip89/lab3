@@ -40,7 +40,5 @@ public class Money extends Item implements Valuable, Pickable {
     }
 
     @Override
-    public String toString() {
-        return price + currency;
-    }
+    public String toString() { return price + " " + currency; }
 }

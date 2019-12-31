@@ -15,6 +15,17 @@ public class Furniture extends Item implements Container {
         this.index = 0;
     }
 
+    @Override
+    public int hashCode() {return index^(name.hashCode()&capacity);}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Furniture))
+            return false;
+
+        return hashCode() == obj.hashCode();
+    }
+
     public String getUsage(){
         return "Открывается " + name;
     }

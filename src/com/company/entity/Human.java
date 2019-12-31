@@ -46,6 +46,17 @@ public class Human extends Creature {
         System.out.println(getName() + ": *свистит*");
     }
 
+    @Override
+    public int hashCode() {return index^(getName().hashCode()&itemCapacity);}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Human))
+            return false;
+
+        return hashCode() == obj.hashCode();
+    }
+
     public void pick(Pickable item){
         if (index == itemCapacity - 1) {
             drop();
@@ -85,6 +96,6 @@ public class Human extends Creature {
     @Override
     public void move(Room room) {
         setRoom(room);
-        System.out.println(getName() + ": *переходит в " + room.toString());
+        System.out.println(getName() + ": *переходит в " + room.toString()+"*");
     }
 }

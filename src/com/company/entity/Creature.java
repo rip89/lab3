@@ -16,6 +16,7 @@ public abstract class Creature {
     public Creature(int fear, Room location, String name) {
         this.fear = fear;
         room = location;
+        this.name = name;
     }
 
     public String getName() {
