@@ -1,24 +1,15 @@
 package com.company.entity;
 
-import com.company.item.Container;
-import com.company.item.Item;
-import com.company.item.Pickable;
-import com.company.item.Valuable;
-
 public class Human extends Creature {
-    private boolean isMale;
-    private int itemCapacity;
-    private Pickable[] items;
 
+    private boolean isMale;
     private int index;
 
-    public Human(String name, boolean isMale, int itemCapacity, Room room) {
-        super(0, room, name);
+    public Human(String name, boolean isMale, Location location) {
+        super(0, location, name);
 
         this.isMale = isMale;
-        this.itemCapacity = itemCapacity;
 
-        this.items = new Pickable[itemCapacity];
         this.index = 0;
     }
 
@@ -30,24 +21,14 @@ public class Human extends Creature {
         isMale = male;
     }
 
-    public int getItemCapacity() {
-        return itemCapacity;
-    }
-
-    public void setItemCapacity(int itemCapacity) {
-        this.itemCapacity = itemCapacity;
-    }
-
-    public Pickable[] getItems() {
-        return items;
-    }
-
     public void whistle(){
         System.out.println(getName() + ": *свистит*");
     }
 
     @Override
-    public int hashCode() {return index^(getName().hashCode()&itemCapacity);}
+    public int hashCode() {
+        return index ^ ( getName().hashCode() );
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -57,45 +38,30 @@ public class Human extends Creature {
         return hashCode() == obj.hashCode();
     }
 
-    public void pick(Pickable item){
-        if (index == itemCapacity - 1) {
-            drop();
-            return;
-        }
-
-        items[index++] = item;
-        System.out.println(getName() + ": *подобрал " + item.toString() + "*");
-        if (item instanceof Valuable) whistle();
-    }
-
     public void rattle(){
         System.out.println(getName() + ": *хрюкнул от страха*");
     }
 
-    public Pickable[] drop(){
-        Pickable[] itemsOld = items;
-        System.out.println(getName() + " выронил все свои предметы!");
-
-        index = 0;
-        items = new Pickable[itemCapacity];
-
-        return itemsOld;
-    }
-
-    public void pickAll(Item[] items){
-        for (Item item : items) {
-            if (item instanceof Container) {
-                Container c = (Container) item;
-                pickAll(c.getItems());
-            }
-
-            if (item instanceof Pickable) pick( (Pickable) item );
-        }
-    }
-
     @Override
-    public void move(Room room) {
-        setRoom(room);
-        System.out.println(getName() + ": *переходит в " + room.toString()+"*");
+    public void move(Location location, int loudness) {
+        setLocation(location);
+        if (loudness < 2) {
+            System.out.println(getName() + ": *на цыпочках пробирается в " + location.toString()+"*");
+            return;
+        }
+        if (loudness < 5) {
+            System.out.println(getName() + ": *крадется в " + location.toString()+"*");
+            return;
+        }
+        if (loudness < 10) {
+            System.out.println(getName() + ": *переходит в " + location.toString()+"*");
+            return;
+        }
+        if (loudness < 15) {
+            System.out.println(getName() + ": *шоркает в  " + location.toString()+"*");
+            return;
+        }
+
+        System.out.println(getName() + ": *топает в " + location.toString()+"*");
     }
 }

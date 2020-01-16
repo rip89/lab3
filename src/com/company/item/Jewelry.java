@@ -4,17 +4,8 @@ public class Jewelry extends Item implements Valuable, Pickable {
     private static int jewelry_id = 1;
 
     private int price;
-    private String name;
 
     private int id;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getPrice(){
         return price;
@@ -25,14 +16,14 @@ public class Jewelry extends Item implements Valuable, Pickable {
     }
 
     public Jewelry(int price, String name) {
+        super(name);
         this.price = price;
-        this.name = name;
         this.id = jewelry_id++;
     }
 
     @Override
     public int hashCode() {
-        return id ^ (name.hashCode() & price);
+        return id ^ (getName().hashCode() & price);
     }
 
     @Override
@@ -45,6 +36,5 @@ public class Jewelry extends Item implements Valuable, Pickable {
 
     @Override
     public String toString() {
-        return name + ", стоимость - " + price;
-    }
+        return getName() + ", стоимость - " + price + " " + "крон" ; }
 }

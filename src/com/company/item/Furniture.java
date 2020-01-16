@@ -1,22 +1,36 @@
 package com.company.item;
 
+import com.company.CapacityLimitException;
+
 public class Furniture extends Item implements Container {
     private int capacity;
     private Item[] items;
-    private String name;
 
     private int index;
 
     public Furniture(int capacity, String name) {
-        this.capacity = capacity;
-        this.name = name;
+        super(name);
 
+        this.capacity = capacity;
         this.items = new Item[capacity];
         this.index = 0;
     }
 
+    public void state(int level) {
+        if (level < 10) {
+            System.out.println("новый " + getName());
+            return;
+        }
+        if (level < 20) {
+            System.out.println("старинный " + getName());
+            return;
+        }
+
+        System.out.println("древний " + getName());
+    }
+
     @Override
-    public int hashCode() {return index^(name.hashCode()&capacity);}
+    public int hashCode() {return index^(getName().hashCode()&capacity);}
 
     @Override
     public boolean equals(Object obj) {
@@ -26,14 +40,9 @@ public class Furniture extends Item implements Container {
         return hashCode() == obj.hashCode();
     }
 
-    public String getUsage(){
-        return "Открывается " + name;
-    }
-
     public void put(Item item){
-        if (index == capacity - 1) {
-            System.out.println("Объект мебели " + name + " переполнен.");
-            return;
+        if (index == capacity) {
+            throw new CapacityLimitException("Объект мебели " + getName() + " переполнен.");
         }
 
         items[index++] = item;
@@ -54,13 +63,5 @@ public class Furniture extends Item implements Container {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

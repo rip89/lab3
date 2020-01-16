@@ -6,6 +6,7 @@ public class Money extends Item implements Valuable, Pickable {
     private int price;
 
     public Money(String currency, int price) {
+        super(price + " " + currency);
         this.currency = currency;
         this.price = price;
     }
@@ -40,5 +41,5 @@ public class Money extends Item implements Valuable, Pickable {
     }
 
     @Override
-    public String toString() { return price + " " + currency; }
+    public String toString() { return getName(); }
 }

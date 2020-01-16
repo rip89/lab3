@@ -1,24 +1,10 @@
 package com.company.entity;
 
 public class Ghost extends Creature implements Scary {
-    private int transparency;
-    private int height;
-
-    public Ghost(Room location, String name) {
+    public Ghost(Location location, String name) {
         super(0, location, name);
     }
 
-    public int getTransparency(){return transparency;}
-
-    public void setTransparency(int transparency) {
-        this.transparency = transparency;
-    }
-
-    public int getHeight(){return height;}
-
-    public void setHeight(int height) {
-        this.transparency = transparency;
-    }
     @Override
     public void groan(int level) {
         if (level < 10) {
@@ -34,7 +20,9 @@ public class Ghost extends Creature implements Scary {
     }
 
     @Override
-    public int hashCode() {return height^(getName().hashCode() & transparency);}
+    public int hashCode() {
+        return ( getName().hashCode() );
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -50,15 +38,20 @@ public class Ghost extends Creature implements Scary {
         creature.setFear( creature.getFear() + 10 );
     }
 
+    public void scare(Human target, Reaction reaction){
+        System.out.printf("%s напугал %s!\n", this.getName(), target.getName());
+        reaction.apply(target);
+    }
+
     @Override
     public void sigh() {
         System.out.println("Привидение " + getName() + ": *вздыхает*");
     }
 
     @Override
-    public void move(Room room) {
-        setRoom(room);
-        System.out.println("Привидение " + getName() + ": *перелетает в " + room.toString() + "*");
+    public void move(Location location, int loudness) {
+        setLocation(location);
+        System.out.println("Привидение " + getName() + ": *перелетает в " + location.toString() + "*");
     }
 }
 
