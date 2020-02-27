@@ -53,10 +53,20 @@ public class Main {
             }
         };
 
-        // пацаны испугались
+        Lilebror.fear(15);
+        Crister.fear(8);
+        Gunilla.fear(8);
+        Crister.moveDog(dog, Location.BEDROOM);
         dog.move(Location.BEDROOM, 5);
-        // карлсон не испугался!!
-        // вчетвером в столовую
+        ghost.fear(0);
+
+        System.out.println();
+
+        ghost.move(Location.DINING_ROOM, 0);
+        Lilebror.move(Location.DINING_ROOM, 0);
+        Crister.move(Location.DINING_ROOM, 0);
+        Gunilla.move(Location.DINING_ROOM, 0);
+
         ghost.hide(sideboard);
         Lilebror.hide(couch);
         Crister.hide(table);
@@ -64,16 +74,21 @@ public class Main {
 
         System.out.println();
 
-        // в столовую входят воры
+        Fille.move(Location.DINING_ROOM, 3);
+        Rulle.move(Location.DINING_ROOM, 3);
 
         Fille.move(Location.KITCHEN, 7);
         Rulle.pickAll(secretary);
+
+        System.out.println();
 
         ghost.unhide();
         ghost.groan(16);
         ghost.scare(Rulle, dropReaction);
         ghost.sigh();
         ghost.groan(20);
+
+        System.out.println();
 
         ghost.move(Location.KITCHEN, 0);
         Fille.move(Location.DINING_ROOM, 7);
@@ -82,7 +97,24 @@ public class Main {
             target.fear(10);
         } );
 
-        // карлсон влетает в столовую
-        // по очереди в прихожую, потом на лестничную площадку, привидение за ними (пару раз по дороге постонало)
+        System.out.println();
+
+        ghost.move(Location.DINING_ROOM, 10);
+        ghost.sigh();
+        ghost.groan(40);
+        ghost.flutter(Rulle);
+        ghost.flutter(Fille);
+
+        System.out.println();
+
+        Fille.move(Location.HALL, 20);
+        Rulle.move(Location.HALL, 20);
+        ghost.move(Location.HALL, 10);
+        ghost.groan(25);
+
+        Rulle.move(Location.STAIRWAY, 50);
+        Fille.move(Location.STAIRWAY, 50);
+        ghost.groan(50);
+        ghost.move(Location.STAIRWAY, 30);
     }
 }

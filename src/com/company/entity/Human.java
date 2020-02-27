@@ -42,6 +42,10 @@ public class Human extends Creature {
         System.out.println(getName() + ": *хрюкнул от страха*");
     }
 
+    public void moveDog(Dog dog, Location location) {
+        System.out.println(getName() + ": *переносит " + dog.getName() + " в " + location.toString()+"*");
+    }
+
     @Override
     public void move(Location location, int loudness) {
         setLocation(location);
@@ -61,7 +65,11 @@ public class Human extends Creature {
             System.out.println(getName() + ": *шоркает в  " + location.toString()+"*");
             return;
         }
+        if (loudness < 25) {
+            System.out.println(getName() + ": *перебегает в  " + location.toString()+"*");
+            return;
+        }
 
-        System.out.println(getName() + ": *топает в " + location.toString()+"*");
+        System.out.println(getName() + ": *выскакивает в " + location.toString()+"*");
     }
 }

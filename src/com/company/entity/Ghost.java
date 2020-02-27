@@ -15,6 +15,10 @@ public class Ghost extends Creature implements Scary {
             System.out.println("Привидение " + getName() + ": *стонет*");
             return;
         }
+        if (level < 30) {
+            System.out.println("Привидение " + getName() + ": *кричит*");
+            return;
+        }
 
         System.out.println("Привидение " + getName() + ": *ОРЕТ И РЫЧИТ*");
     }
